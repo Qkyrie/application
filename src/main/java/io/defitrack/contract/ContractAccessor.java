@@ -22,7 +22,7 @@ public class ContractAccessor {
         this.web3j = web3j;
     }
 
-    public List<? extends Type<?>> executeCall(String address, Function function) {
+    public List<? extends Type> executeCall(String address, Function function) {
         try {
             final String encodedFunction = FunctionEncoder.encode(function);
             final EthCall ethCall = web3j.ethCall(
