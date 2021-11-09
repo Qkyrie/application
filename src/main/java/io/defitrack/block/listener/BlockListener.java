@@ -19,7 +19,7 @@ public class BlockListener {
         this.objectMapper = objectMapper;
     }
 
-    @SqsListener(value = "${sqs.auth0}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
+ //   @SqsListener(value = "${sqs.auth0}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
     public void process(String message) {
         try {
             final Block block = objectMapper.readValue(message, Block.class);

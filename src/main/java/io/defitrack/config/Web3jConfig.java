@@ -10,7 +10,7 @@ import org.web3j.protocol.http.HttpService;
 public class Web3jConfig {
 
     @Bean
-    public Web3j provideWeb3j(@Value("${io.codechef.ropsten.endpoint.url}") String endpointUrl) {
+    public Web3j provideWeb3j(@Value("${io.defitrack.ropsten.endpoint.url}") String endpointUrl) {
         return Web3j.build(new HttpService(endpointUrl));
     }
 }

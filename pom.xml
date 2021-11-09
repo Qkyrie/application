@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <okhttp.version>4.9.1</okhttp.version>
         <web3j.version>4.8.4</web3j.version>
         <spring-cloud-dependencies.version>2020.0.3</spring-cloud-dependencies.version>
     </properties>
@@ -32,6 +33,11 @@
             <groupId>org.web3j</groupId>
             <artifactId>abi</artifactId>
             <version>${web3j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
         </dependency>
         <dependency>
             <groupId>org.web3j</groupId>

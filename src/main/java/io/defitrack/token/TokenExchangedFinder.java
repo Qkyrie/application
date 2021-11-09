@@ -1,7 +1,5 @@
 package io.defitrack.token;
 
-import io.defitrack.token.ExchangeEvent;
-import io.reactivex.Flowable;
 import org.springframework.stereotype.Component;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.EventValues;
@@ -15,13 +13,16 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterNumber;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.EthBlock;
+import org.web3j.protocol.core.methods.response.EthLog;
 import org.web3j.protocol.core.methods.response.Log;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class TokenExchangedFinder {
@@ -46,16 +47,14 @@ public class TokenExchangedFinder {
         this.web3j = web3j;
     }
 
-    Flowable<Optional<ExchangeEvent>> getTokenExchangedEvents(Long blockNumber) {
+    public List<Optional<ExchangeEvent>> getTokenExchangedEvents(Long blockNumber) {
         try {
-
             final EthBlock.Block block = web3j.ethGetBlockByNumber(new DefaultBlockParameterNumber(blockNumber), true).send().getBlock();
-
-            EthFilter ethFilter = new EthFilter(block.getHash());
+            EthFilter ethFilter = new EthFilter(block.getHash(), "0x77b7da519f9f856d9f6455e60ddccd208ab1a916");
             ethFilter.addOptionalTopics(EventEncoder.encode(EXCHANGED_EVENT));
-            return web3j.ethLogFlowable(ethFilter).map(log -> getEventParameters(EXCHANGED_EVENT, log));
+            return web3j.ethGetLogs(ethFilter).send().getLogs().stream().map(log -> getEventParameters(EXCHANGED_EVENT, ((EthLog.LogObject) log.get()).get())).collect(Collectors.toList());
         } catch (Exception exception) {
-            return Flowable.empty();
+            return Collections.emptyList();
         }
     }
 
