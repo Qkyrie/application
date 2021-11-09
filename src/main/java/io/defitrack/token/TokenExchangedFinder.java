@@ -1,4 +1,4 @@
-package io.defitrack;
+package io.defitrack.token;
 
 import io.defitrack.token.ExchangeEvent;
 import io.reactivex.Flowable;

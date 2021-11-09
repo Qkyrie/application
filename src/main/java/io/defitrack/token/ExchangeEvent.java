@@ -1,4 +1,4 @@
-package io.defitrack;
+package io.defitrack.token;
 
 import java.math.BigInteger;
 
