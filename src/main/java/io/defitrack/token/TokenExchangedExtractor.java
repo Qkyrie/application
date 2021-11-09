@@ -25,8 +25,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class TokenExchangedFinder {
+public class TokenExchangedExtractor {
 
+    public static final String EVENT_EMITTER_ADDRESS = "0x77b7da519f9f856d9f6455e60ddccd208ab1a916";
     private final Web3j web3j;
 
     private static final Event EXCHANGED_EVENT = new Event("TokenExchanged",
@@ -43,14 +44,14 @@ public class TokenExchangedFinder {
                     })
     );
 
-    public TokenExchangedFinder(Web3j web3j) {
+    public TokenExchangedExtractor(Web3j web3j) {
         this.web3j = web3j;
     }
 
     public List<Optional<ExchangeEvent>> getTokenExchangedEvents(Long blockNumber) {
         try {
             final EthBlock.Block block = web3j.ethGetBlockByNumber(new DefaultBlockParameterNumber(blockNumber), true).send().getBlock();
-            EthFilter ethFilter = new EthFilter(block.getHash(), "0x77b7da519f9f856d9f6455e60ddccd208ab1a916");
+            EthFilter ethFilter = new EthFilter(block.getHash(), EVENT_EMITTER_ADDRESS);
             ethFilter.addOptionalTopics(EventEncoder.encode(EXCHANGED_EVENT));
             return web3j.ethGetLogs(ethFilter).send().getLogs().stream().map(log -> getEventParameters(EXCHANGED_EVENT, ((EthLog.LogObject) log.get()).get())).collect(Collectors.toList());
         } catch (Exception exception) {

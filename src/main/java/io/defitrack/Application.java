@@ -1,6 +1,6 @@
 package io.defitrack;
 
-import io.defitrack.token.TokenExchangedFinder;
+import io.defitrack.token.TokenExchangedExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 public class Application {
 
     @Autowired
-    private TokenExchangedFinder tokenExchangedFinder;
+    private TokenExchangedExtractor tokenExchangedFinder;
 
     @PostConstruct
     public void init() {
