@@ -1,12 +1,12 @@
-package io.defitrack.token;
+package io.defitrack.token.event;
 
 import java.math.BigInteger;
 import java.util.Objects;
 
-public class ExchangeEvent {
+public class ContractExchangeEvent {
 
-    public ExchangeEvent(String wallet, String srcToken, BigInteger srcAmount,
-                         String destToken, BigInteger destAmount) {
+    public ContractExchangeEvent(String wallet, String srcToken, BigInteger srcAmount,
+                                 String destToken, BigInteger destAmount) {
         this.wallet = wallet;
         this.srcToken = srcToken;
         this.srcAmount = srcAmount;

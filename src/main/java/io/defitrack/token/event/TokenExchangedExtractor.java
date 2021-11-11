@@ -1,4 +1,4 @@
-package io.defitrack.token;
+package io.defitrack.token.event;
 
 import org.springframework.stereotype.Component;
 import org.web3j.abi.EventEncoder;
@@ -48,7 +48,7 @@ public class TokenExchangedExtractor {
         this.web3j = web3j;
     }
 
-    public List<Optional<ExchangeEvent>> getTokenExchangedEvents(Long blockNumber) {
+    public List<Optional<ContractExchangeEvent>> getTokenExchangedEvents(Long blockNumber) {
         try {
             final EthBlock.Block block = web3j.ethGetBlockByNumber(new DefaultBlockParameterNumber(blockNumber), true).send().getBlock();
             EthFilter ethFilter = new EthFilter(block.getHash(), EVENT_EMITTER_ADDRESS);
@@ -59,7 +59,7 @@ public class TokenExchangedExtractor {
         }
     }
 
-    public Optional<ExchangeEvent> getEventParameters(
+    public Optional<ContractExchangeEvent> getEventParameters(
             Event event, Log log) {
         final List<String> topics = log.getTopics();
         final String encodedEventSignature = EventEncoder.encode(event);
@@ -80,7 +80,7 @@ public class TokenExchangedExtractor {
 
 
         final EventValues eventValues = new EventValues(indexedValues, nonIndexedValues);
-        return Optional.of(new ExchangeEvent(
+        return Optional.of(new ContractExchangeEvent(
                 (String) eventValues.getIndexedValues().get(0).getValue(),
                 (String) eventValues.getNonIndexedValues().get(0).getValue(),
                 (BigInteger) eventValues.getNonIndexedValues().get(1).getValue(),
