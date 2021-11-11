@@ -26,4 +26,15 @@ public class TokenExchange {
     private double decimalToAmount() {
         return new BigDecimal(toAmount).divide(BigDecimal.valueOf(10).pow(to.getDecimals()), 6, RoundingMode.HALF_UP).doubleValue();
     }
+
+    @Override
+    public String toString() {
+        return "TokenExchange{" +
+                "wallet='" + wallet + '\'' +
+                ", from=" + from +
+                ", to=" + to +
+                ", fromAmount=" + fromAmount +
+                ", toAmount=" + toAmount +
+                '}';
+    }
 }

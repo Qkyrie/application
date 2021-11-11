@@ -4,6 +4,7 @@ import io.defitrack.token.domain.Token;
 import org.springframework.stereotype.Component;
 import org.web3j.contracts.eip20.generated.ERC20;
 import org.web3j.protocol.Web3j;
+import org.web3j.tx.ReadonlyTransactionManager;
 import org.web3j.tx.TransactionManager;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ public class ERC20Service {
 
     private ERC20 loadERC20(String address) {
         System.out.println("loading " + address);
-        return ERC20.load(address, web3j, (TransactionManager) null, null);
+        return ERC20.load(address, web3j, new ReadonlyTransactionManager(web3j, "0x83A524af3cf8eB146132A2459664f7680A5515bE"), null);
     }
 
     public Optional<Token> getTokenInformation(String address) {

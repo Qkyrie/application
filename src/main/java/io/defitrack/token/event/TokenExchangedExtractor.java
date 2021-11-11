@@ -55,6 +55,7 @@ public class TokenExchangedExtractor {
             ethFilter.addOptionalTopics(EventEncoder.encode(EXCHANGED_EVENT));
             return web3j.ethGetLogs(ethFilter).send().getLogs().stream().map(log -> getEventParameters(EXCHANGED_EVENT, ((EthLog.LogObject) log.get()).get())).collect(Collectors.toList());
         } catch (Exception exception) {
+            exception.printStackTrace();
             return Collections.emptyList();
         }
     }

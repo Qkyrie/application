@@ -23,9 +23,7 @@ public class Application {
     public void init() {
         System.out.println("getting events");
         tokenExchangedFinder.getTokenExchangedEvents(9150365L).stream().map(event -> {
-                    System.out.println(event);
                     return event.map(e -> {
-                        System.out.println(e);
                         return new TokenExchange(
                                 e.getWallet(),
                                 getTokenInformation(e.getSrcToken()).orElse(null),
